@@ -14,11 +14,14 @@ namespace DevWorkshop.TaskAPI.Api.Controllers;
 [Produces("application/json")]
 public class UsersController : ControllerBase
 {
-    // TODO: ESTUDIANTE - Inyectar IUserService y ILogger
-    
-    public UsersController()
+    private readonly IUserService _userService;
+    private readonly ILogger<UsersController> _logger;
+  
+
+    public UsersController(IUserService userService, ILogger<UsersController> logger)
     {
-        // TODO: ESTUDIANTE - Configurar las dependencias inyectadas
+        _userService = userService;
+        _logger = logger;
     }
 
     /// <summary>
@@ -79,8 +82,27 @@ public class UsersController : ControllerBase
     [ProducesResponseType(typeof(ApiResponse<object>), 500)]
     public async Task<ActionResult<ApiResponse<UserDto>>> CreateUser([FromBody] CreateUserDto createUserDto)
     {
-        // TODO: ESTUDIANTE - Implementar lógica del controlador
-        throw new NotImplementedException("Endpoint pendiente de implementación por el estudiante");
+        try
+        {
+            _logger.LogInformation("Creando nuevo usuario con email: {Email}", createUserDto.Email);
+            var userDto = await _userService.CreateUserAsync(createUserDto);
+            _logger.LogInformation("Usuario creado exitosamente con ID: {UserId}", userDto.UserId);
+            return CreatedAtAction(
+                nameof(CreateUser),
+                new { id = userDto.UserId },
+                ApiResponse<UserDto>.SuccessResponse(userDto, "Usuario creado exitosamente")
+                );
+        }
+        catch (InvalidOperationException ex)
+        {
+            _logger.LogWarning(ex, "Error al crear usuario: {Message}", ex.Message);
+            return Conflict(ApiResponse<object>.ErrorResponse(ex.Message));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error inesperado al crear usuario: {Message}", ex.Message);
+            return StatusCode(500, ApiResponse<object>.ErrorResponse("Ocurrió un error inesperado"));
+        }
     }
 
     /// <summary>

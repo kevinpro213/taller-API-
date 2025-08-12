@@ -36,3 +36,18 @@ public class CreateUserDto
     [StringLength(100, MinimumLength = 6, ErrorMessage = "La contraseña debe tener entre 6 y 100 caracteres")]
     public string Password { get; set; } = string.Empty;
 }
+
+public class UserDto
+{
+    public int UserId { get; set; }
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string FullName { get; set; } = string.Empty;
+    public int RoleId { get; set; }
+    public string RoleName { get; set; } = string.Empty;
+    public int? TeamId { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
+
+}

@@ -1,9 +1,11 @@
+using DevWorkshop.TaskAPI.Application.Interfaces;
+using DevWorkshop.TaskAPI.Application.Services;
 using DevWorkshop.TaskAPI.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Scalar.AspNetCore;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -136,3 +138,5 @@ app.MapGet("/", () => Results.Redirect("/scalar/v1"))
 app.MapControllers();
 
 app.Run();
+
+builder.Services.AddScoped<IUserService, UserService>();
