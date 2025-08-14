@@ -14,11 +14,12 @@ public class AuthResponseDto
     /// Fecha de expiración del token
     /// </summary>
     public DateTime ExpiresAt { get; set; }
+    public global::UserInfo User { get; internal set; }
 
     /// <summary>
     /// Información del usuario autenticado
     /// </summary>
-    public UserInfo User { get; set; } = new();
+
 }
 
 /// <summary>
