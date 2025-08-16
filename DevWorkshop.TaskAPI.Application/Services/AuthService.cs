@@ -210,25 +210,11 @@ public class AuthService : IAuthService
         }
     }
 
-    Task<AuthResponseDto?> IAuthService.LoginAsync(LoginDto loginDto)
-    {
-        throw new NotImplementedException();
-    }
+ 
 
-    bool IAuthService.VerifyPassword(string password, string hashedPassword)
-    {
-        throw new NotImplementedException();
-    }
 
-    string IAuthService.HashPassword(string password)
-    {
-        throw new NotImplementedException();
-    }
 
-    string IAuthService.GenerateJwtToken(int userId, string email, string? roleName)
-    {
-        throw new NotImplementedException();
-    }
+
 
     public async Task<bool> LogoutAsync(int userId)
     {

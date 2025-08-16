@@ -26,9 +26,6 @@ public class UsersController : ControllerBase
         _userService = userService;
         _logger = logger;
 
-    
-    
-    
     }
 
     /// <summary>
